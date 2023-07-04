@@ -1,0 +1,251 @@
+.Netfilx {
+    background-color: black;
+    color: white;
+    padding-inline: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.background-img {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    z-index: 1;
+}
+
+.background-mask {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    background: linear-gradient(#000000 , #ffffff00,#000000);
+    z-index: 2;
+}
+.background-mask2 {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    left: 0;
+    background: linear-gradient(to right, #000000 , #ffffff00);
+    z-index: 3;
+}
+
+/********************** nav ***************************/
+
+nav {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    white-space: nowrap;
+    z-index: 10;
+}
+
+
+.nav-left-container {
+    width: max-content;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    font-size: large;
+    font-weight: 500;
+}
+
+
+
+.nav-left-container>img {
+    height: 100%;
+}
+
+.nav-right-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.nav-right-container>* {
+    margin-inline: 10px;
+}
+
+
+.nav-right-container>img {
+    height: 30px
+}
+
+
+/* *************************** main -> background ****************************** */
+main {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 10;
+}
+
+.background-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+.background-left-container {
+    margin-top: 20vh;
+    white-space: nowrap;
+    width: 50vw;
+    height: 40vh;
+    overflow: hidden;
+    z-index: 2;
+}
+
+.background-left-container>img {
+    height: 15vh;
+}
+
+.background-left-content-container {
+    width: 30vw;
+    white-space: normal;
+}
+
+.background-left-cta-container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}
+
+.background-left-cta-container img {
+    height: 3vh;
+}
+
+.playBtn-container {
+    padding-inline: 10px;
+    padding-block: 5px;
+    color: #000000;
+    background-color: aliceblue;
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.moreinfoBtn-container {
+    padding-inline: 15px;
+    padding-block: 5px;
+    color: white;
+    background-color: rgba(128, 128, 128, 0.674);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* ********************** main -> background -> line ****************************** */
+
+
+.line-images-container {
+    margin-top: 50px;
+}
+
+
+.line-images-container>.title {
+    
+    margin-block: 20px;
+    font-size: x-large;
+    font-weight: 400;
+}
+
+
+.line-images {
+
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+
+}
+
+
+
+.line-images>button {
+    background-color: black;
+    color: wheat;
+    border: none;
+    font-size: large;
+    font-weight: 500;
+}
+
+.LBtn {
+    position: absolute;
+    display: none;
+    width: 50px;
+    left: 0;
+    height: calc(9px * 15);
+    opacity: 0.5;
+    z-index: 99;
+}
+
+.RBtn {
+    position: absolute;
+    display: none;
+    width: 50px;
+    left: calc(100% - 50px);
+    height: calc(9px * 15);
+    opacity: 0.5;
+    z-index: 99;
+}
+
+.line-images:hover button {
+    display: block;
+}
+
+
+.line-images>video {
+    width: calc(16px * 15);
+    height: calc(9px * 15);
+    min-width: calc(16px * 15);
+    min-height: calc(9px * 15);
+    border-radius: 10px;
+}
+
+
+/* ********************* footer ************************ */
+
+footer {
+    margin-top: 50px;
+    border-top: 10px solid rgb(40, 40, 40);
+    padding: 3% 10%;
+    
+}
+
+footer span{
+    font-size: large;
+    font-weight: 400;
+    color: whitesmoke;
+}
+
+footer a{
+    font-size: large;
+    font-weight: 400;
+    color: whitesmoke;
+}
+
+.footer2-link-container {
+    margin-block: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    row-gap: 15px;
+}
+
+.footer3-toggle-container select {
+    width: 5vw;
+    height: 3vh;
+    background-color: #000000;
+    color: aliceblue;
+}
