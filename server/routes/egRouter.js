@@ -1,5 +1,5 @@
 const express = require('express');
-const robots = require('../public/javascripts/playwright');  // 内部方法返回 Promise,需要异步执行
+const robots = require('../public/javascripts/playwright_Encapsulation');  // 内部方法返回 Promise,需要异步执行
 const router = express.Router();
 router.get('/', (req, res) => {
     res.status(200).json({ 
