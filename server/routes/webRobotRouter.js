@@ -5,14 +5,21 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     res.status(200).json({
         message: 'Hello World!!!test',
-        start:'http://localhost:3005/start',
+        start:'http://localhost:4005/indeed',
+        manually:'http://localhost:4005/manually',
     })
 }
 );
 
-router.get('/start', async (req, res) => {
+router.get('/indeed', async (req, res) => {
     robot.startIndeed('https://www.indeed.com/jobs?q=c2c+contract+react&l=United+States')
-    res.status(200).json({ home: 'http://localhost:3005', content: 'finish' })
+    res.status(200).json({ home: 'http://localhost:4005', content: 'indeed' })
+}
+);
+
+router.get('/manually', async (req, res) => {
+    await robot.startManually(req.query.url, req.query.elementPath)
+    res.status(200).json({ home: 'http://localhost:4005', content: robot.results, length: robot.resultsLength })
 }
 );
 

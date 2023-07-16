@@ -13,7 +13,7 @@ class Crawler {
         this.page = await this.context.newPage();           // 初始化模拟页面
         await this.page.goto(this.url);                     // 跳转到要爬取的页面
         this.title = await this.page.title();              // 获取 title
-        await this.fetchData();
+        await this.fetchIndeedData();
         //查看是否有aria-label="Next" 的按钮
         while (true) {
             const nextButton = await this.page.$('[aria-label*="Next"]');
@@ -26,7 +26,7 @@ class Crawler {
                 await this.page.click('[aria-label*="Next"]');
                 // 等待加载完成
                 await this.page.waitForLoadState('networkidle');
-                await this.fetchData();
+                await this.fetchIndeedData();
             }
         }
         // 关闭模拟浏览器
@@ -45,10 +45,11 @@ class Crawler {
         console.log('Results saved to results.json.');
     }
 
-    async fetchData() {
-        console.log(`fetching page: in`);
+    async fetchIndeedData() {
+        console.log(`fetchIndeedData: in`);
         // 保存页面截图
         await this.page.screenshot({ path: `./public/images/${this.title}.png` });
+        await this.page.screenshot({ path: `./public/images/temp.png` });
         // 获取页面中class="jobsearch-ResultsList"的元素
         const sidebarUlElement = await this.page.$('.jobsearch-ResultsList');
         // 遍历 sidebarUlElement 获取每个 li 里的 a 标签 和class="companyName"  的元素
@@ -72,10 +73,60 @@ class Crawler {
                     // 将结果保存到 results 数组中
                     this.results[companyName] = ["https://www.indeed.com" + href];
                 }
-                
+
             }
         }
-        console.log(`fetching page: out`);
+        console.log(`fetchIndeedData: out`);
+    }
+
+    /*==========================================================================================*/
+    /*====================================== 手动抓取 ===========================================*/
+    /*==========================================================================================*/
+
+
+    async startManually(url,elementPath) {
+        try {
+            this.url = url;                                     // 要爬取的页面
+            this.results = {};                                  // 保存爬取的结果
+            this.resultsLength = 0;                             // 保存爬取的结果的长度
+            this.browser = await chromium.launch();             // 初始化模拟浏览器
+            this.context = await this.browser.newContext({
+                userAgent: 'Mozilla/5.0 (Macintosh; Intel Mac OS X 13_4_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36'
+            });
+            this.page = await this.context.newPage();           // 初始化模拟页面
+            await this.page.goto(this.url);                     // 跳转到要爬取的页面
+            this.title = await this.page.title();              // 获取 title
+    
+            await this.fetchManuallyData(elementPath);
+    
+            // 关闭模拟浏览器
+            await this.browser.close();
+            // 保存结果到json文件
+            fs.writeFileSync(`./public/json/${this.title}.json`, JSON.stringify(this.results, null, 2)); 
+        } catch (error) {
+            console.error("*** startManually error ***: ",error);
+        }
+    }
+
+    async fetchManuallyData(elementPath) {
+        console.log(`###fetchManuallyData: in`);
+        // 保存页面截图
+        await this.page.screenshot({ path: `./public/images/${this.title}.png` });
+        await this.page.screenshot({ path: `./public/images/temp.png` });
+        // 获取页面中所有匹配 keyWord 的元素
+        console.log("###elementPath",elementPath);
+        const keyElement = await this.page.$$(elementPath);
+        // 遍历 keyElement 获取content
+        for (let i = 0; i < keyElement.length; i++) {
+            // 获取元素里面的纯文本
+            const content = await keyElement[i].innerText();
+            this.results[i] = content;
+        }
+        // console.log("###keyElement",keyElement);
+        console.log(`###this.results.length: ${Object.keys(this.results).length}`);
+        this.resultsLength = Object.keys(this.results).length;
+        
+        console.log(`###fetchManuallyData: out`);
     }
 }
 
